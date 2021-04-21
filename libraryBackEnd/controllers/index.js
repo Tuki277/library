@@ -78,7 +78,8 @@ exports.getLogin = (req, res, next) => {
     const password = req.body.password
     sql.query('SELECT * FROM account WHERE username = ? AND password = ?', [username, password], (err, rows, fields) => {
         if ( rows.length > 0) {
-            const token = jwt.sign({ id: rows.id}, 'token')
+            console.log(rows[0].id)
+            const token = jwt.sign({ id: rows[0].id}, 'token')
             res.status(200).json({ message: "login success",
                                    token : token})
         } else {
